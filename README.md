@@ -17,12 +17,12 @@ As an illustration of these distinct winsorizing techniques, the panel below sho
 The left figure has been created with Stata's `winsor` and the right one with `winsor_moment_preserving.do`. This do file conducts a modified winsorizing procedure which allows to control the value of the kurtosis. In this example, it has been set to remain close to 12.  
 
 `winsor_moment_preserving.do` follows an iterative approach:
-1. set upper bound on the kurtosis: _kappa_upper_ (12)
+1. set lower bound on the kurtosis: _kappa_lower_ (12)
 2. set initial lower and upper percentiles (1 and 99)
 3. winsorize the variable
 4. compute the kurtosis of the winsorized variable 
-  - if below _kappa_upper_: update lower and upper percentiles by 1 and return to step 3
-  - if equal or above _kappa_upper_: proceed with step 5
+  - if kurtosis > _kappa_lower_: update lower and upper percentiles by 1 and return to step 3
+  - else: proceed with step 5
 5. report number of iterations
 
 This repository contains additional files:
