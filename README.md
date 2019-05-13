@@ -6,21 +6,21 @@ Adjusting extreme realizations ('outliers') of a variable is called _winsorizing
 
 In Stata, the SSC packages `winsor` and `winsor2` allow to perform winsorizing variables as described above.
 
-**Winsorizing variables in this way changes the values of their moments**. However, it is sometimes necessary to maintain them. In other words, the winsorizing procedure should respect boundary conditions on the variables' moments.
+**However, winsorizing variables in this way changes the values of their moments**. But for certain statistical purposes, it can be necessary to preserve them. In other words, the winsorizing procedure should respect boundary conditions on the variables' moments.
 
 Yet, the two Stata packages mentioned above do not provide this feature.
 
-As an illustration, the panel below shows a variable created from 5000 random draws from the pdf of a [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) before and after winsorizing. It also displays the corresponding [kurtosis](https://en.wikipedia.org/wiki/Kurtosis).
+As an illustration of these distinct winsorizing techniques, the panel below shows a variable created from 5000 random draws from the pdf of a [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) before and after winsorizing. It also displays the corresponding [kurtosis](https://en.wikipedia.org/wiki/Kurtosis), i.e. the fourth moment.
 
 ![Winsor Comparison](winsor_comparison.png)
 
-The left figure has been created with Stata's `winsor` and the right one with `winsor_moment_preserving.do`. This do file conducts a modified winsorizing procedure which allows controlling for the stability of the kurtosis. In this example, it has been set to remain close to 12.  
+The left figure has been created with Stata's `winsor` and the right one with `winsor_moment_preserving.do`. This do file conducts a modified winsorizing procedure which allows to control the value of the kurtosis. In this example, it has been set to remain close to 12.  
 
 `winsor_moment_preserving.do` follows an iterative approach:
 1. set upper bound on the kurtosis: _kappa_upper_ (12)
 2. set initial lower and upper percentiles (1 and 99)
 3. winsorize the variable
 4. compute the kurtosis of the winsorized variable 
-  - if below _kappa_upper_: update lower bound and upper percentiles by 1 increment and return to step 3.
-  - if equal or above _kappa_upper_: exit
+  - if below _kappa_upper_: update lower and upper percentiles by 1 and return to step 3
+  - if equal or above _kappa_upper_: proceed with step 5
 5. report number of iterations
