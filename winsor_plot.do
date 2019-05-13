@@ -88,13 +88,3 @@ graph combine winsor_class winsor_mompres, col(2) row(1) ///
 xsize(10) ysize(4) iscale(1.0) ///
 imargin(2 2 2 2)
 graph export "$graphPath/winsor_comparison.png", replace
-
-
-
-
-
-
-
-
-
-

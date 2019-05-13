@@ -31,7 +31,7 @@ local k_l = 1
 local k_u = 99
 local iter = 0
 
-while `i' > 7 {
+while `i' > 12 {
 
 	egen var_out_pt_l = pctile(var_in), p(`k_l') 
 	egen var_out_pt_u = pctile(var_in), p(`k_u') 
