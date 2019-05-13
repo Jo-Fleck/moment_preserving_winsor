@@ -24,3 +24,8 @@ The left figure has been created with Stata's `winsor` and the right one with `w
   - if below _kappa_upper_: update lower and upper percentiles by 1 and return to step 3
   - if equal or above _kappa_upper_: proceed with step 5
 5. report number of iterations
+
+This repository contains additional files:
+- `winsor_plot.do`: creates the plot shown above
+- `winsor_moment_preserving_extended.do`: shows how to extend the moment preserving winsorizing to account for additional data dimensions (in this case, firm ids, sectors and years)
+- `data_extended.dta`: contains the data used by `winsor_moment_preserving_extended.do`
